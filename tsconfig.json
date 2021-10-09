@@ -33,7 +33,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "src/components/Auth/Repository.ts", "src/components/Auth/Service/AuthService.ts"  ],
   "exclude": [
     "node_modules"
   ]

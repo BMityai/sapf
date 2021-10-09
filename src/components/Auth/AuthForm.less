@@ -1,0 +1,51 @@
+.auth_wrapper {
+    position: relative;
+    min-width: 100vw;
+    min-height: 100vh;
+
+    .auth_form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
+
+
+        input {
+            border: none;
+            border-bottom: 1px solid #000;
+            border-radius: unset;
+            min-width: 400px;
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+        .error_message {
+            display: block;
+        }
+
+        /* Change autocomplete styles in WebKit */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus
+        {
+            -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+        }
+
+        .field {
+            margin: 40px 0;
+        }
+
+        .title {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        button {
+            min-width: 100%;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+    }
+}
