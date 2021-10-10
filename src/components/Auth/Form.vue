@@ -1,7 +1,7 @@
 <template>
-    <div class="auth_wrapper">
+    <div class="auth_wrapper" @keyup.enter="submit">
         <div class="auth_form">
-            <div class="title">Авторизация</div>
+            <div class="title" @click="showError">Авторизация</div>
             <span class="p-float-label field">
                 <InputText
                     id="username"
@@ -53,7 +53,8 @@ import { defineComponent, ref } from "vue";
 import InputText from "primevue/inputtext";
 import Password from "primevue/password";
 import Button from "primevue/button";
-import { form, submit, validateResponse } from "./Service/AuthService";
+import { form, submit, validateResponse, setToast } from "./Service/AuthService";
+import { useToast } from "primevue/usetoast";
 
 export default defineComponent({
     components: {
@@ -62,6 +63,7 @@ export default defineComponent({
         Button,
     },
     setup() {
+        setToast(useToast());
         return { form, submit, validateResponse };
     },
 });
