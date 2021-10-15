@@ -14,6 +14,18 @@ function auth(to: RouteLocationNormalized, from: RouteLocationNormalized, next: 
     }
 }
 
+/**
+ * Allow only guest users
+ */
+function guest(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
+    console.log(isAuth.value)
+    if (isAuth.value) {
+        router.push({ name: 'home' });
+    } else {
+        next();
+    }
+}
+
 
 /**
  *  Get adminUserState when reload page or first initial 
@@ -26,5 +38,6 @@ async function getAdminUserStateFromBackend(to: RouteLocationNormalized, from: R
 
 export {
     auth,
+    guest,
     getAdminUserStateFromBackend
 }

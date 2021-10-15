@@ -2,13 +2,18 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Login from '../views/Auth/Login.vue'
 import Home from '@/views/Home.vue'
 import MainLayout from '@/components/Layouts/main/Index.vue'
-import { auth, getAdminUserStateFromBackend } from '@/app/Middlewares/Kernel'
+import { auth, guest, getAdminUserStateFromBackend } from '@/app/Middlewares/Kernel'
 
 
 const routes: Array<RouteRecordRaw> = [
     {
         path: '/login',         // login auth form
         name: 'login',
+        meta: {
+            middlewares: [
+                guest
+            ]
+        },
         component: Login,
         
     },
@@ -24,6 +29,11 @@ const routes: Array<RouteRecordRaw> = [
         children: [
             {
                 path: '',       // home page
+                name: 'home',
+                components: { pageContent: Home }
+            },
+            {
+                path: '/test',       // home page
                 name: 'home',
                 components: { pageContent: Home }
             },

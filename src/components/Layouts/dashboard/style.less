@@ -1,0 +1,41 @@
+.task-boxes {
+    display: flex;
+    justify-content: space-between;
+
+    .task-box {
+        width: ~'calc(25% - 10px)';
+        height: 100px;
+        box-shadow: @shadow;
+        border-radius: 5px;
+        position: relative;
+        padding: 5px;
+        color: @font-white-color;
+
+        i {
+            position: absolute;
+            font-size: 80px;
+            top: 10px;
+            right: 10px;
+            color: #ffffff54;
+        }
+
+        &.sales {
+            background-image: linear-gradient(to right, #f4a22e, #f8c737);
+        }
+
+        &.new-orders {
+            background-image: linear-gradient(to right, #0080d4, #12aeee);
+        }
+
+        &.completed-orders {
+            background-image: linear-gradient(to right, #02a564, #00e7c0);
+        }
+
+        &.canceled-orders {
+            background-image: linear-gradient(to right, #9042db, #bc74f8);
+        }
+        .info {
+            font-size: 50px;
+        }
+    }
+}

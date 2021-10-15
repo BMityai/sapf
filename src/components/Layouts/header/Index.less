@@ -1,0 +1,35 @@
+header {
+    position: fixed;
+    background: @theme-color;
+    min-width: 100vw;
+    top: 0;
+    right: 0;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: @shadow;
+    .left-content {        
+        .logo {
+            width: 300px;
+            height: 70px;
+            padding: 10px;
+            background-color: #086ebc;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.24);
+            img {
+                height: 50px;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    }
+    .right-content {
+        padding: 10px;
+        .user {
+            .cabinet {
+                width: 50px;
+                height: 50px;
+                font-size: 30px;
+            }
+        }
+    }
+}

@@ -1,4 +1,9 @@
+@import url(./variables.less);
 @import url(../../components/Auth/AuthForm.less);
+@import url(../../components/Layouts/main/Index.less);
+@import url(../../components/Layouts/header/Index.less);
+@import url(../../components/Layouts/sidebar/Index.less);
+@import url(../../components/Layouts/dashboard/style.less);
 
 
 @font-face {
@@ -10,5 +15,10 @@ html {
     box-sizing: border-box;
     font-family: Century_Gothic;
     font-size: 16px;
-    color: #4d4d4d;
+    color: @font-main-color;
+}
+
+body {
+    margin: 0;
+    padding: 0;
 }
