@@ -1,7 +1,7 @@
 import { isAuth, getUser } from '@/app/States/AdminUserState';
 import { NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 import router from '@/router';
-
+import { setSidebarActiveItemState, setPageTitleState } from '../States/PageState';
 
 /**
  * Allow only authorized users
@@ -35,9 +35,27 @@ async function getAdminUserStateFromBackend(to: RouteLocationNormalized, from: R
     next();
 }
 
+/**
+ * Set active item in sidebar
+ */
+function setSidebarActiveItem(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
+    setSidebarActiveItemState(to.matched[1].name as string);
+    next();
+}
+
+/**
+ * Set active item in sidebar
+ */
+function setPageTitle(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
+    setPageTitleState(to.matched[1].meta.title as string);
+    next();
+}
+
 
 export {
     auth,
     guest,
-    getAdminUserStateFromBackend
+    getAdminUserStateFromBackend,
+    setSidebarActiveItem,
+    setPageTitle
 }

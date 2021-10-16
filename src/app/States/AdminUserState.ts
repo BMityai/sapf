@@ -10,7 +10,7 @@ const { cookie, removeCookie } = useCookie("aToken");
 const repository = new AuthRepository();
 const isAuth = ref(false);
 const user = reactive({
-    data: null
+    data: null as any
 });
 
 /**
