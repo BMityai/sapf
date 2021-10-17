@@ -3,6 +3,9 @@
     padding: 10px;
     transition: width 0.3s linear;
     box-shadow: @shadow;
+    position: fixed;
+    top: 0;
+    bottom: 0;
 
     &:hover {
         width: 300px;
@@ -17,7 +20,7 @@
         }
 
         &+.content {
-            width: ~'calc(100vw - 300px)';
+            margin-left: 300px;
         }
 
         .logo {

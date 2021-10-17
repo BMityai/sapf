@@ -15,6 +15,6 @@ export default class AuthRepository extends BackendRepositoryClient {
      * Get user by jwt
      */
     public async getAdminUserByJwt(jwt: string): Promise<any> {
-        return this.fetch(`${this.getAdminUserUrl}`, 'GET', { jwt })
+        return await this.fetch(`${this.getAdminUserUrl}`, 'GET', { jwt })
     }
 }

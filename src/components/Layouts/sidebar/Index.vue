@@ -44,20 +44,9 @@
         <div class="account">
             <div class="icon">
                 <Avatar @click="router.push({name: 'account'})" :label="userFirstLetter" class="p-mr-2" size="large" style="background-color:#2196F3; color: #ffffff"/>
-                <div class="title">
+                <div class="title" @click="logout" >
                     Выйти
                 </div>
-
-                <OverlayPanel
-                    ref="op"
-                    appendTo="body"
-                    :showCloseIcon="true"
-                    id="overlay_panel"
-                    style="width: 450px"
-                    :breakpoints="{ '960px': '75vw' }"
-                >
-                    555555555555 44444 55555 22222222
-                </OverlayPanel>
             </div>
         </div>
     </div>
@@ -66,28 +55,19 @@
 <script lang='ts'>
 import { defineComponent, ref } from "vue";
 import { sidebarActiveItem } from "@/app/States/PageState";
-import OverlayPanel from "primevue/overlaypanel";
 import Avatar from "primevue/avatar";
-import { user } from "@/app/States/AdminUserState";
+import { user, logout } from "@/app/States/AdminUserState";
 import router from "@/router";
 
 
 export default defineComponent({
     components: {
-        OverlayPanel,
         Avatar,
     },
     setup() {
-        const op = ref();
-
-        const toggle = (event: any) => {
-            op.value.toggle(event);
-        };
-
         const userFirstLetter = user.data.username[0];
-        console.log(userFirstLetter);
 
-        return { sidebarActiveItem, op, toggle, user, userFirstLetter, router };
+        return { sidebarActiveItem, user, userFirstLetter, router, logout };
     },
 });
 </script>

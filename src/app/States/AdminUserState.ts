@@ -5,6 +5,7 @@
 import { reactive, ref } from "vue";
 import AuthRepository from '@/components/Auth/Repositories/AuthRepository'
 import { useCookie } from "@vue-composable/cookie";
+import router from "@/router";
 const { cookie, removeCookie } = useCookie("aToken");
 
 const repository = new AuthRepository();
@@ -43,13 +44,14 @@ async function getUser(): Promise<void> {
     }
 }
 
-async function logout() {
+function logout() {
     if(isAuth.value == false) {
         return;
     }
     removeCookie();
     isAuth.value = false;
     user.data = null;
+    router.push({name: 'login'})
 }
 
 

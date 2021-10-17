@@ -43,10 +43,10 @@
 
 <script lang='ts'>
 import { defineComponent } from 'vue'
-import Sales from '@/components/Layouts/dashboard/sales.vue'
-import NewOrders from '@/components/Layouts/dashboard/new_orders.vue'
-import CompletedOrders from '@/components/Layouts/dashboard/completed_orders.vue'
-import CanceledOrders from '@/components/Layouts/dashboard/canceled_orders.vue'
+import Sales from '@/components/Dashboard/sales.vue'
+import NewOrders from '@/components/Dashboard/new_orders.vue'
+import CompletedOrders from '@/components/Dashboard/completed_orders.vue'
+import CanceledOrders from '@/components/Dashboard/canceled_orders.vue'
 export default defineComponent({
     components: {
         Sales,
