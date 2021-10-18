@@ -6,6 +6,7 @@
                 class="p-button-success"
                 icon="pi pi-check"
                 iconPos="right"
+                @click="save"
             />
         </div>
         <table>
@@ -16,25 +17,26 @@
                     <th class="action"></th>
                 </tr>
             </thead>
-            <tbody v-for="t in test" :key="t.id">
-                <tr v-if="!t.removed">
-                    <td class="crm">
+            <tbody v-for="status in statuses.form" :key="status.id">
+                <tr v-if="!status.removed">
+                    <td class="crm" :class="{invalid: status.crmIsValid === false}">
                         <InputText
                             type="text"
-                            v-model="t.crm"
-                            @change="setEditedFlag(t.id)"
+                            v-model="status.crm"
+                            @change="setEditedFlag(status.id)"
                         />
                     </td>
-                    <td class="kaspi">
+                    <td class="kaspi" :class="{invalid: status.kaspiIsValid === false}">
                         <InputText
                             type="text"
-                            v-model="t.kaspi"
-                            @change="setEditedFlag(t.id)"
+                            v-model="status.kaspi"
+                            @change="setEditedFlag(status.id)"
+                            
                         />
                     </td>
                     <td class="action">
                         <Button
-                            @click="removeRow(t.id)"
+                            @click="removeRow(status.id)"
                             icon="pi pi-trash"
                             class="p-button-raised p-button-danger"
                         />
@@ -54,51 +56,26 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch } from "vue";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
+import { getStatuses, statuses, addRow, removeRow, setEditedFlag, save, setToast } from "./Service/StatusMappingService";
+import { useToast } from "primevue/usetoast";
+
 
 export default defineComponent({
     components: {
         Button,
         InputText,
     },
-    setup() {
-        const addRow = () => {
-            const emptyField = {
-                id: `new-${Date.now()}`,
-                crm: "",
-                kaspi: "",
-                new: true,
-            };
-            test.value.push(emptyField);
-            console.log(test.value);
-        };
+    async setup() {
+        // Set toast
+        setToast(useToast());
 
-        const removeRow = (id: any) => {
-            for (const item of test.value) {
-                if (item.id !== id) continue;
-                item.removed = true;
-            }
-        };
+        // Get statuses from backend
+        await getStatuses();
 
-        const setEditedFlag = (id: any) => {
-            for (const item of test.value) {
-                if (item.id !== id) continue;
-                item.edited = true;
-            }
-        };
-
-        const test = ref();
-        test.value = [
-            { id: 1, crm: "testCrm1", kaspi: "testKaspi1" },
-            { id: 2, crm: "testCrm2", kaspi: "testKaspi2" },
-            { id: 3, crm: "testCrm3", kaspi: "testKaspi3" },
-            { id: 4, crm: "testCrm4", kaspi: "testKaspi4" },
-            { id: 5, crm: "testCrm5", kaspi: "testKaspi5" },
-        ];
-
-        return { test, addRow, removeRow, setEditedFlag };
+        return { statuses, addRow, removeRow, setEditedFlag, save };
     },
 });
 </script>

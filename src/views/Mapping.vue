@@ -1,5 +1,7 @@
 <template>
-    <Statuses/>
+    <Suspense>
+        <Statuses />
+    </Suspense>
 </template>
 
 <script lang='ts'>

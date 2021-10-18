@@ -30,9 +30,13 @@
         tbody {
             tr {
                 td {
+                    &.invalid {
+                        background: #ff9696;
+                    }
                     input {
                         border: none;
                         width: 100%;
+                        background: inherit;
                         &:focus {
                             box-shadow: none!important;
                         }
