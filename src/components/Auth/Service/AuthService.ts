@@ -89,7 +89,9 @@ const submit = async () => {
     if(!validateResponse.formIsValid) return;
 
     try {
+
         const response = await repository.authAdminUser(form);
+
         if(!response.auth) {
             return;
         }

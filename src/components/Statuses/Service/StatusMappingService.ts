@@ -76,6 +76,8 @@ const save = async () => {
 
     isSubmit.value = true;
 
+    console.log(statuses);
+
     // Return if invalid form
     if (!statuses.validate.isValid) {
         toast.value.add({ severity: 'error', summary: 'Ошибка валидации', detail: 'Проверьте правильность заполнения формы', life: 3000 });
@@ -86,6 +88,7 @@ const save = async () => {
     try {
         await repository.submitStatusMappingForm(statuses.form);
         toast.value.add({ severity: 'success', summary: '', detail: 'Маппинг статусов успешно сохранен', life: 3000 });
+        isSubmit.value = false;
     } catch(e) {
         const error = e as any;
         console.log(error.response.status)
@@ -98,7 +101,8 @@ const save = async () => {
 const validate = () => {
     statuses.validate.isValid = true;
     for (const status of statuses.form) {
-        if (!status.crm.length) {
+
+        if (!status.crm.length && !status.removed) {
             status.crmIsValid = false;
             status.crmErrorMessage = 'Обязательное для заполнения поле';
             statuses.validate.isValid = false;
@@ -107,7 +111,7 @@ const validate = () => {
             status.crmErrorMessage = '';
         }
 
-        if (!status.kaspi.length) {
+        if (!status.kaspi.length && !status.removed) {
             status.kaspiIsValid = false;
             status.kaspiErrorMessage = 'Обязательное для заполнения поле';
             statuses.validate.isValid = false;
