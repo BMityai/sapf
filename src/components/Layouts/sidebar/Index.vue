@@ -24,9 +24,21 @@
                 :class="{ active: sidebarActiveItem === 'statuses' }"
             >
                 <div class="icon">
+                    <i class="pi pi-clone" style="fontsize: 2rem"></i>
+                </div>
+                <div class="title">Маппинг статусов</div>
+            </router-link>
+
+            <!-- STATUSES -->
+            <router-link
+                :to="{ name: 'warehouses' }"
+                class="item"
+                :class="{ active: sidebarActiveItem === 'warehouses' }"
+            >
+                <div class="icon">
                     <i class="pi pi-cog" style="fontsize: 2rem"></i>
                 </div>
-                <div class="title">Маппинг</div>
+                <div class="title">Маппинг складов</div>
             </router-link>
 
             <!-- USER -->

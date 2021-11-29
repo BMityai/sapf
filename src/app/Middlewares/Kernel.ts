@@ -6,23 +6,19 @@ import { setSidebarActiveItemState, setPageTitleState } from '../States/PageStat
 /**
  * Allow only authorized users
  */
-function auth(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
+function auth(to: RouteLocationNormalized, from: RouteLocationNormalized): void {
     if (!isAuth.value) {
         router.push({ name: 'login' });
-    } else {
-        next();
-    }
+    } 
 }
 
 /**
  * Allow only guest users
  */
-function guest(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
+function guest(to: RouteLocationNormalized, from: RouteLocationNormalized): void {
     console.log(isAuth.value)
     if (isAuth.value) {
         router.push({ name: 'home' });
-    } else {
-        next();
     }
 }
 
@@ -30,25 +26,22 @@ function guest(to: RouteLocationNormalized, from: RouteLocationNormalized, next:
 /**
  *  Get adminUserState when reload page or first initial 
  */
-async function getAdminUserStateFromBackend(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): Promise<void> {
+async function getAdminUserStateFromBackend(to: RouteLocationNormalized, from: RouteLocationNormalized): Promise<void> {
     await getUser();
-    next();
 }
 
 /**
  * Set active item in sidebar
  */
-function setSidebarActiveItem(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
+function setSidebarActiveItem(to: RouteLocationNormalized, from: RouteLocationNormalized): void {
     setSidebarActiveItemState(to.matched[1].name as string);
-    next();
 }
 
 /**
  * Set active item in sidebar
  */
-function setPageTitle(to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext): void {
+function setPageTitle(to: RouteLocationNormalized, from: RouteLocationNormalized): void {
     setPageTitleState(to.matched[1].meta.title as string);
-    next();
 }
 
 

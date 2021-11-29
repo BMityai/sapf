@@ -1,0 +1,62 @@
+.warehouses-mapping {
+
+    table {
+        width: 90%;
+        margin: 0 auto;
+        border-collapse: collapse;
+
+        thead {
+            tr {
+                background: #ccc;
+                height: 40px;
+                font-size: 20px;
+
+                .crm,
+                .kaspi {
+                    width: 50%;
+                }
+
+                .action {
+                    width: 60px;
+                }
+            }
+        }
+
+        th,
+        td {
+            border: 1px solid #dbdbdb;
+        }
+
+        tbody {
+            tr {
+                td {
+                    &.invalid {
+                        background: #ff9696;
+                    }
+                    input {
+                        border: none;
+                        width: 100%;
+                        background: inherit;
+                        &:focus {
+                            box-shadow: none!important;
+                        }
+                    }
+
+                    &.action {
+                        text-align: center;
+
+                        button {
+                            margin: 3px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .save, .add-row {
+        width: 90%;
+        margin: 20px auto;
+        text-align: end;
+    }
+}

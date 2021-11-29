@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Login from '../views/Auth/Login.vue'
 import Home from '@/views/Home.vue'
-import Mapping from '@/views/Mapping.vue'
+import StatusMapping from '@/views/StatusMapping.vue'
+import WarehouseMapping from '@/views/WarehouseMapping.vue'
 import Users from '@/views/Users.vue'
 import MainLayout from '@/components/Layouts/main/Index.vue'
 import { auth, guest, getAdminUserStateFromBackend, setSidebarActiveItem, setPageTitle } from '@/app/Middlewares/Kernel'
@@ -42,9 +43,17 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: '/statuses',       // status mapping
                 name: 'statuses',
-                components: { pageContent: Mapping },
+                components: { pageContent: StatusMapping },
                 meta: {
                     title: 'Маппинг статусов'
+                }
+            },
+            {
+                path: '/warehouses',       // status mapping
+                name: 'warehouses',
+                components: { pageContent: WarehouseMapping },
+                meta: {
+                    title: 'Маппинг складов'
                 }
             },
             {
@@ -77,7 +86,7 @@ const router = createRouter({
 
 
 router.beforeEach(async (to, from, next) => {
-    await getAdminUserStateFromBackend(to, from, next)  // get admin user state from backend when reload page or first initial
+    await getAdminUserStateFromBackend(to, from)  // get admin user state from backend when reload page or first initial
 
     // set active meta (for sidebar)
     to.meta.isActive = true;
@@ -87,8 +96,10 @@ router.beforeEach(async (to, from, next) => {
     }
     // handle middlewares from routes
     for (const middleware of to.meta.middlewares as any) {
-        middleware(to, from, next)
+        middleware(to, from)
     }
+    
+    return next();
 })
 
 

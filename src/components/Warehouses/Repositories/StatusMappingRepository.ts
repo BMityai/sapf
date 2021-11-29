@@ -1,19 +1,19 @@
 import BackendRepositoryClient from "@/app/Repositories/BackendRepositoryClient";
 export default class StatusMappingRepository extends BackendRepositoryClient {
 
-    private statusesUrl = 'statuses'
+    private statusesUrm = 'statuses'
 
     /**
      * Auth user
      */
     public async getStatuses(): Promise<any> {
-        return await this.fetch(`${this.statusesUrl}`, 'GET');
+        return await this.fetch(`${this.statusesUrm}`, 'GET');
     }
 
     /**
      * Auth user
      */
     public async submitStatusMappingForm(statuses: any): Promise<any> {
-        return await this.fetch(`${this.statusesUrl}`, 'POST', null, statuses);
+        return await this.fetch(`${this.statusesUrm}`, 'POST', null, statuses);
     }
 }

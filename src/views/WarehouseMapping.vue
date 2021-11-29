@@ -1,16 +1,16 @@
 <template>
-    <suspense>
-        <Users />
-    </suspense>
+    <Suspense>
+        <Warehouses />
+    </Suspense>
 </template>
 
 <script lang='ts'>
 import { defineComponent } from "vue";
-import Users from "@/components/Users/Users.vue";
+import Warehouses from "@/components/Warehouses/Index.vue";
 
 export default defineComponent({
     components: {
-        Users,
+        Warehouses,
     },
     setup() {
         return {};
