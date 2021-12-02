@@ -4,7 +4,9 @@ import Home from '@/views/Home.vue'
 import StatusMapping from '@/views/StatusMapping.vue'
 import WarehouseMapping from '@/views/WarehouseMapping.vue'
 import Users from '@/views/Users.vue'
+import CreateUser from '@/views/CreateUser.vue'
 import MainLayout from '@/components/Layouts/main/Index.vue'
+import UsersLayout from '@/components/Layouts/Users/UsersLayout.vue'
 import { auth, guest, getAdminUserStateFromBackend, setSidebarActiveItem, setPageTitle } from '@/app/Middlewares/Kernel'
 
 
@@ -18,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
             ]
         },
         component: Login,
-        
+
     },
     {
         path: '/',              // main layout
@@ -59,19 +61,41 @@ const routes: Array<RouteRecordRaw> = [
             {
                 path: '/users',       // users
                 name: 'users',
-                components: { pageContent: Users },
+                components: { pageContent: UsersLayout },
+                redirect: {
+                    name: 'users.all',
+                },
                 meta: {
                     title: 'Пользователи'
-                }
+                },
+                children: [
+                    {
+                        path: '',       // users
+                        name: 'users.all',
+                        components: { usersLayoutContent: Users },
+                        meta: {
+                            title: 'Пользователи'
+                        },
+                    },
+                    {
+                        path: 'create',
+                        name: 'users.create',
+                        components: { usersLayoutContent: CreateUser },
+                        meta: {
+                            title: 'Новый пользователь'
+                        },
+                    }
+                ]
             },
             {
                 path: '/account',       // users
                 name: 'account',
-                components: { pageContent: Users },
+                components: { pageContent: CreateUser },
                 meta: {
                     title: 'Аккаунт'
                 }
             },
+
 
         ]
     },
@@ -98,7 +122,7 @@ router.beforeEach(async (to, from, next) => {
     for (const middleware of to.meta.middlewares as any) {
         middleware(to, from)
     }
-    
+
     return next();
 })
 

@@ -44,6 +44,7 @@
             <!-- USER -->
             <router-link
                 :to="{ name: 'users' }"
+                v-if="user.data.username == 'admin'"
                 class="item"
                 :class="{ active: sidebarActiveItem === 'users' }"
             >
@@ -68,7 +69,7 @@
 import { defineComponent, ref } from "vue";
 import { sidebarActiveItem } from "@/app/States/PageState";
 import Avatar from "primevue/avatar";
-import { user, logout } from "@/app/States/AdminUserState";
+import { user, logout, userFirstLetter } from "@/app/States/AdminUserState";
 import router from "@/router";
 
 
@@ -77,7 +78,7 @@ export default defineComponent({
         Avatar,
     },
     setup() {
-        const userFirstLetter = user.data.username[0];
+        userFirstLetter.value = (user.data.firstname[0]).toUpperCase();
 
         return { sidebarActiveItem, user, userFirstLetter, router, logout };
     },

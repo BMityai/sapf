@@ -13,11 +13,13 @@ const isAuth = ref(false);
 const user = reactive({
     data: null as any
 });
+const userFirstLetter = ref();
 
 /**
  * Get admin user from backend and set to frontend state
  */
 async function getUser(): Promise<void> {
+    
     // Return if auth
     if(isAuth.value) {
         return;
@@ -63,6 +65,7 @@ function authAdminUser(userData: any) {
 
 export {
     isAuth,
+    userFirstLetter,
     user,
     getUser,
     authAdminUser,

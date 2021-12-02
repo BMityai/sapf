@@ -1,7 +1,7 @@
 /**
  * Sidebar states
  */
-import { reactive, ref } from "vue";
+import { ref } from "vue";
 
 const sidebarActiveItem = ref('');
 const pageTitle = ref('');

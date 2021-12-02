@@ -17,26 +17,26 @@
                     <th class="action"></th>
                 </tr>
             </thead>
-            <tbody v-for="status in statuses.form" :key="status.id">
-                <tr v-if="!status.removed">
-                    <td class="crm" :class="{invalid: status.crmIsValid === false}">
+            <tbody v-for="warehouse in warehouses.form" :key="warehouse.id">
+                <tr v-if="!warehouse.removed">
+                    <td class="crm" :class="{invalid: warehouse.crmIsValid === false}">
                         <InputText
                             type="text"
-                            v-model="status.crm"
-                            @change="setEditedFlag(status.id)"
+                            v-model="warehouse.crm"
+                            @change="setEditedFlag(warehouse.id)"
                         />
                     </td>
-                    <td class="kaspi" :class="{invalid: status.kaspiIsValid === false}">
+                    <td class="kaspi" :class="{invalid: warehouse.kaspiIsValid === false}">
                         <InputText
                             type="text"
-                            v-model="status.kaspi"
-                            @change="setEditedFlag(status.id)"
+                            v-model="warehouse.kaspi"
+                            @change="setEditedFlag(warehouse.id)"
                             
                         />
                     </td>
                     <td class="action">
                         <Button
-                            @click="removeRow(status.id)"
+                            @click="removeRow(warehouse.id)"
                             icon="pi pi-trash"
                             class="p-button-raised p-button-danger"
                         />
@@ -59,7 +59,7 @@
 import { defineComponent, ref, watch } from "vue";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
-import { getStatuses, statuses, addRow, removeRow, setEditedFlag, save, setToast } from "./Service/StatusMappingService";
+import { getWarehouses, warehouses, addRow, removeRow, setEditedFlag, save, setToast } from "./Service/WarehouseMappingService";
 import { useToast } from "primevue/usetoast";
 
 
@@ -72,10 +72,10 @@ export default defineComponent({
         // Set toast
         setToast(useToast());
 
-        // Get statuses from backend
-        await getStatuses();
+        // Get warehouses from backend
+        await getWarehouses();
 
-        return { statuses, addRow, removeRow, setEditedFlag, save };
+        return { warehouses, addRow, removeRow, setEditedFlag, save };
     },
 });
 </script>

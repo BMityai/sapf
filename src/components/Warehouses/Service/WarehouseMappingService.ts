@@ -1,19 +1,17 @@
 
-import router from "@/router";
 import { ref, reactive, watch } from "vue";
-import StatusMappingRepository from '../Repositories/StatusMappingRepository'
-import { authAdminUser } from '@/app/States/AdminUserState'
+import WarehouseMappingRepository from '../Repositories/WarehouseMappingRepository'
 
 
 /**
  * Init repository
  */
-const repository = new StatusMappingRepository();
+const repository = new WarehouseMappingRepository();
 
 const toast = ref();
 
-// Statuses init
-const statuses = reactive({
+// Warehouseses init
+const warehouses = reactive({
     validate: { isValid: true },
     form: [{ id: '', crm: '', kaspi: '', removed: false, new: false, edited: false, kaspiIsValid: true, crmIsValid: true, crmErrorMessage: '', kaspiErrorMessage: '', }]
 });
@@ -21,10 +19,10 @@ const statuses = reactive({
 const isSubmit = ref(false);
 
 /**
- * Get statuses from backend
+ * Get warehouses from backend
  */
-const getStatuses = async () => {
-    statuses.form = await repository.getStatuses();
+const getWarehouses = async () => {
+    warehouses.form = await repository.getWarehouses();
 }
 
 /**
@@ -44,14 +42,14 @@ const addRow = () => {
         crmErrorMessage: '',
         kaspiErrorMessage: '',
     };
-    statuses.form.push(emptyField);
+    warehouses.form.push(emptyField);
 };
 
 /**
  * Set removed flag
  */
 const removeRow = (id: any) => {
-    for (const item of statuses.form) {
+    for (const item of warehouses.form) {
         if (item.id !== id) continue;
         item.removed = true;
     }
@@ -61,7 +59,7 @@ const removeRow = (id: any) => {
  * Set edited flag
  */
 const setEditedFlag = (id: any) => {
-    for (const item of statuses.form) {
+    for (const item of warehouses.form) {
         if (item.id !== id) continue;
         item.edited = true;
     }
@@ -76,16 +74,17 @@ const save = async () => {
 
     isSubmit.value = true;
 
+
     // Return if invalid form
-    if (!statuses.validate.isValid) {
+    if (!warehouses.validate.isValid) {
         toast.value.add({ severity: 'error', summary: 'Ошибка валидации', detail: 'Проверьте правильность заполнения формы', life: 3000 });
         return;
     }
 
     // Submit form
     try {
-        statuses.form = await repository.submitStatusMappingForm(statuses.form);
-        toast.value.add({ severity: 'success', summary: '', detail: 'Маппинг статусов успешно сохранен', life: 3000 });
+        await repository.submitWarehouseMappingForm(warehouses.form);
+        toast.value.add({ severity: 'success', summary: '', detail: 'Маппинг складов успешно сохранен', life: 3000 });
         isSubmit.value = false;
     } catch(e) {
         const error = e as any;
@@ -98,40 +97,40 @@ const save = async () => {
  * Validate form
  */
 const validate = () => {
-    statuses.validate.isValid = true;
-    for (const status of statuses.form) {
+    warehouses.validate.isValid = true;
+    for (const warehouse of warehouses.form) {
 
-        if (!status.crm.length && !status.removed) {
-            status.crmIsValid = false;
-            status.crmErrorMessage = 'Обязательное для заполнения поле';
-            statuses.validate.isValid = false;
+        if (!warehouse.crm.length && !warehouse.removed) {
+            warehouse.crmIsValid = false;
+            warehouse.crmErrorMessage = 'Обязательное для заполнения поле';
+            warehouses.validate.isValid = false;
         } else {
-            status.crmIsValid = true;
-            status.crmErrorMessage = '';
+            warehouse.crmIsValid = true;
+            warehouse.crmErrorMessage = '';
         }
 
-        if (!status.kaspi.length && !status.removed) {
-            status.kaspiIsValid = false;
-            status.kaspiErrorMessage = 'Обязательное для заполнения поле';
-            statuses.validate.isValid = false;
+        if (!warehouse.kaspi.length && !warehouse.removed) {
+            warehouse.kaspiIsValid = false;
+            warehouse.kaspiErrorMessage = 'Обязательное для заполнения поле';
+            warehouses.validate.isValid = false;
         } else {
-            status.kaspiIsValid = true;
-            status.crmErrorMessage = '';
+            warehouse.kaspiIsValid = true;
+            warehouse.crmErrorMessage = '';
         }
     }
 
-    for (const status of statuses.form) {
-        if (!status.crmIsValid || !status.kaspiIsValid) {
-            statuses.validate.isValid = false;
+    for (const warehouse of warehouses.form) {
+        if (!warehouse.crmIsValid || !warehouse.kaspiIsValid) {
+            warehouses.validate.isValid = false;
             return;
         }
-        statuses.validate.isValid = true;
+        warehouses.validate.isValid = true;
     }
 
 
 }
 
-watch(statuses, () => {
+watch(warehouses, () => {
     if (!isSubmit.value) return;
     validate();
 })
@@ -144,4 +143,4 @@ const setToast = (toastObject: any) => {
 }
 
 
-export { getStatuses, statuses, addRow, removeRow, setEditedFlag, save, setToast };
+export { getWarehouses, warehouses, addRow, removeRow, setEditedFlag, save, setToast };

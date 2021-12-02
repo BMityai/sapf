@@ -16,7 +16,6 @@ function auth(to: RouteLocationNormalized, from: RouteLocationNormalized): void 
  * Allow only guest users
  */
 function guest(to: RouteLocationNormalized, from: RouteLocationNormalized): void {
-    console.log(isAuth.value)
     if (isAuth.value) {
         router.push({ name: 'home' });
     }
@@ -41,7 +40,12 @@ function setSidebarActiveItem(to: RouteLocationNormalized, from: RouteLocationNo
  * Set active item in sidebar
  */
 function setPageTitle(to: RouteLocationNormalized, from: RouteLocationNormalized): void {
-    setPageTitleState(to.matched[1].meta.title as string);
+    for(const el of to.matched.reverse()) {
+        if(!el.meta || !el.meta.title) continue;
+        setPageTitleState(el.meta.title as string);
+        break;
+    }
+    to.matched.reverse();
 }
 
 
