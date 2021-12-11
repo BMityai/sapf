@@ -1,21 +1,22 @@
 <template>
     <div class="main_chart">
-        <Chart type="line" :data="chartData" :options="basicOptions" />
+        <Chart type="line" :data="chartData" :options="basicOptions"/>
     </div>
 </template>
 <script lang='ts'>
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch } from "vue";
 import Chart from "primevue/chart";
-import { chartData } from "./Services/DashboardService";
+import { getInfoForChart, chartData } from "./Services/DashboardService";
 
 
 export default defineComponent({
     components: {
         Chart,
     },
-    setup() {
+    async setup() {
         
-
+        await getInfoForChart();
+        
         const basicOptions = ref({
             plugins: {
                 legend: {

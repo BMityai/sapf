@@ -1,14 +1,21 @@
 
 <template>
     <div class="task-boxes">
-        <Sales :count = dataForTaskBoxes.allOrders />
-        <NewOrders :count = dataForTaskBoxes.today />
-        <CompletedOrders :count = dataForTaskBoxes.completed />
-        <CanceledOrders :count = dataForTaskBoxes.canceled />
+        <Sales :count="dataForTaskBoxes.allOrders" />
+        <NewOrders :count="dataForTaskBoxes.today" />
+        <CompletedOrders :count="dataForTaskBoxes.completed" />
+        <CanceledOrders :count="dataForTaskBoxes.canceled" />
     </div>
-    <Chart />
+    <Suspense>
+        <template #default>
+            <Chart />
+        </template>
+        <template #fallback> 
+            <Skeleton style="padding-bottom:50%; margin-top:30px" width="100%"/>    
+        </template>
+    </Suspense>
+
     <Orders />
-    
 </template>
 
 <script lang='ts'>
@@ -20,9 +27,10 @@ import CanceledOrders from "@/components/Dashboard/canceled_orders.vue";
 import Orders from "@/components/Dashboard/orders.vue";
 import Chart from "@/components/Dashboard/chart.vue";
 import {
-    init,
+    getAllOrdersInfo,
     dataForTaskBoxes,
 } from "@/components/Dashboard/Services/DashboardService";
+import Skeleton from 'primevue/skeleton';
 
 export default defineComponent({
     components: {
@@ -31,11 +39,12 @@ export default defineComponent({
         CompletedOrders,
         CanceledOrders,
         Chart,
-        Orders
+        Skeleton,
+        Orders,
     },
     setup() {
-        // Init service
-        init();
+        // Init info
+        getAllOrdersInfo();
         return { dataForTaskBoxes };
     },
 });

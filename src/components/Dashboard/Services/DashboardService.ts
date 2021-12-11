@@ -66,15 +66,6 @@ const filters = ref({
     'global': { value: null, matchMode: 'contains' }
 });
 
-
-
-/**
- * Init service
- */
-const init = async (): Promise<void> => {
-    await Promise.allSettled([getAllOrdersInfo(), getInfoForChart()]);
-}
-
 /**
  * Get info for task boxes
  */
@@ -87,6 +78,7 @@ const getAllOrdersInfo = async (): Promise<void> => {
  */
 const getInfoForChart = async (): Promise<void> => {
     const data = await repository.getInfoForTheYear();
+    console.log(data)
     chartData.value.labels = data.labels;
     chartData.value.datasets[0].data = data.datasets.all;
     chartData.value.datasets[1].data = data.datasets.completed;
@@ -133,5 +125,5 @@ const loadLazyData = async (): Promise<void> => {
 
 
 
-export { init, chartData, dataForTaskBoxes, dt, loading, totalRecords, orders, filters, lazyParams, onPage, onSort, onFilter, loadLazyData }
+export { getAllOrdersInfo, getInfoForChart, chartData, dataForTaskBoxes, dt, loading, totalRecords, orders, filters, lazyParams, onPage, onSort, onFilter, loadLazyData }
 
