@@ -114,10 +114,8 @@ const onFilter = (): void => {
  */
 const loadLazyData = async (): Promise<void> => {
 
-    console.log(JSON.stringify(lazyParams.value)) // параметры для сортировки
     loading.value = true;
-
-    const ordersDataFromBackend = await repository.getOrders();
+    const ordersDataFromBackend = await repository.getOrders(lazyParams.value);
     orders.value = ordersDataFromBackend.orders;
     totalRecords.value = ordersDataFromBackend.totalRecords;
     loading.value = false;

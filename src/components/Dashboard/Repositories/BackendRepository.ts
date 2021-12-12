@@ -27,8 +27,8 @@ export default class BackendRepository extends BackendRepositoryClient {
     /**
      * Get orders info for the year
      */
-    public async getOrders(): Promise<any> {
-        return await this.fetch(`${this.DASHBOARD_ORDERS}`, 'GET');
+    public async getOrders(params: any): Promise<any> {
+        return await this.fetch(`${this.DASHBOARD_ORDERS}`, 'GET', params);
     }
 
 }
