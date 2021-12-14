@@ -78,7 +78,6 @@ const getAllOrdersInfo = async (): Promise<void> => {
  */
 const getInfoForChart = async (): Promise<void> => {
     const data = await repository.getInfoForTheYear();
-    console.log(data)
     chartData.value.labels = data.labels;
     chartData.value.datasets[0].data = data.datasets.all;
     chartData.value.datasets[1].data = data.datasets.completed;
@@ -113,7 +112,6 @@ const onFilter = (): void => {
  * Get data from backend
  */
 const loadLazyData = async (): Promise<void> => {
-
     loading.value = true;
     const ordersDataFromBackend = await repository.getOrders(lazyParams.value);
     orders.value = ordersDataFromBackend.orders;

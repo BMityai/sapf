@@ -1,0 +1,14 @@
+version: "3.5"
+services:
+  app:
+    build:
+      dockerfile: "./docker/Dockerfile"
+      context: .
+    container_name: ${CONTAINER_NAME}
+    restart: unless-stopped
+    ports:
+      - 9898:80
+      - 443:443
+      
+    volumes:
+      - "./.env:/var/www/app/.env"

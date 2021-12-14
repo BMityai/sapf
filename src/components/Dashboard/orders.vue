@@ -110,10 +110,6 @@
                             >{{ perLog }}</pre
                         >
                     </div>
-                    <div class="export_data">
-                        <h4>Exported data to crm</h4>
-                        <pre>{{ slotProps.data.data.exportedToCrmData }}</pre>
-                    </div>
                 </div>
             </template>
         </DataTable>
@@ -153,19 +149,18 @@ export default defineComponent({
         onMounted(async () => {
             loading.value = true;
 
-            lazyParams.value = ref({
+            lazyParams.value = {
                 first: 0,
                 rows: dt.value.rows,
                 sortField: null,
                 sortOrder: null,
                 filters: filters.value,
-            });
+            };
             await loadLazyData();
         });
 
-
-        const clearFilter = async() => {
-            filters.value['global'].value = null;
+        const clearFilter = async () => {
+            filters.value["global"].value = null;
             await loadLazyData();
         };
 
@@ -181,7 +176,7 @@ export default defineComponent({
             onSort,
             onFilter,
             expandedRows,
-            clearFilter
+            clearFilter,
         };
     },
 });
@@ -191,6 +186,13 @@ export default defineComponent({
 .main_orders {
     .p-datatable {
         font-size: 14px;
+        pre {
+            white-space: pre-wrap; /* css-3 */
+            white-space: -moz-pre-wrap; /* Mozilla, с 1999 года*/
+            white-space: -pre-wrap; /* Opera 4-6 */
+            white-space: -o-pre-wrap; /* Opera 7 */
+            word-wrap: break-word; /* Internet Explorer 5.5+ */
+        }
     }
     h3 {
         font-size: 18px;

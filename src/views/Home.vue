@@ -7,12 +7,12 @@
         <CanceledOrders :count="dataForTaskBoxes.canceled" />
     </div>
     <Suspense>
-        <template #default>
+        <!-- <template #default> -->
             <Chart />
-        </template>
+        <!-- </template>
         <template #fallback> 
             <Skeleton style="padding-bottom:50%; margin-top:30px" width="100%"/>    
-        </template>
+        </template> -->
     </Suspense>
 
     <Orders />
@@ -30,7 +30,7 @@ import {
     getAllOrdersInfo,
     dataForTaskBoxes,
 } from "@/components/Dashboard/Services/DashboardService";
-import Skeleton from 'primevue/skeleton';
+// import Skeleton from 'primevue/skeleton';
 
 export default defineComponent({
     components: {
@@ -39,7 +39,7 @@ export default defineComponent({
         CompletedOrders,
         CanceledOrders,
         Chart,
-        Skeleton,
+        // Skeleton,
         Orders,
     },
     setup() {
